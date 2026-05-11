@@ -30,3 +30,27 @@ def remove_duplicates(nums):
             write_index += 1
 
     return write_index  # Return the new length of the array without duplicates
+
+
+# 3. Squares of a Sorted Array
+
+def sorted_squares(nums):
+    n = len(nums)
+    result = [0] * n
+    left, right = 0, n - 1
+    index = n - 1
+
+    while left <= right:
+        left_square = nums[left] ** 2
+        right_square = nums[right] ** 2
+
+        if left_square > right_square:
+            result[index] = left_square
+            left += 1
+        else:
+            result[index] = right_square
+            right -= 1
+
+        index -= 1
+
+    return result

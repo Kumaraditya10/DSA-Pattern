@@ -55,7 +55,7 @@ def sorted_squares(nums):
 
     return result
 
-# 44. Triplet Sum to Zero
+# 4. Triplet Sum to Zero
 
 def three_sum(nums):
     nums.sort()
@@ -86,3 +86,48 @@ def three_sum(nums):
                 right -= 1
 
     return triplets
+
+
+# 5. Triplet sum closest to target
+
+def three_sum_closest(nums, target):
+    nums.sort()
+    closest_sum = float('inf')
+
+    for i in range(len(nums) - 2):
+        left, right = i + 1, len(nums) - 1
+
+        while left < right:
+            current_sum = nums[i] + nums[left] + nums[right]
+
+            if abs(current_sum - target) < abs(closest_sum - target):
+                closest_sum = current_sum
+
+            if current_sum < target:
+                left += 1
+            elif current_sum > target:
+                right -= 1
+            else:
+                return current_sum  # Return the exact sum if it matches the target
+
+    return closest_sum
+
+# 6. Triplet with Smaller Sum
+
+def three_sum_smaller(nums, target):
+    nums.sort()
+    count = 0
+
+    for i in range(len(nums) - 2):
+        left, right = i + 1, len(nums) - 1
+
+        while left < right:
+            current_sum = nums[i] + nums[left] + nums[right]
+
+            if current_sum < target:
+                count += right - left  # All elements between left and right will also satisfy the condition
+                left += 1
+            else:
+                right -= 1
+
+    return count

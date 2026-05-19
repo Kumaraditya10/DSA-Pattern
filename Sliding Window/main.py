@@ -17,3 +17,25 @@ def max_sub_array_of_size_k(k, arr):
             low += 1
 
     return result
+
+# 2. Minimum size subarray sum 
+
+def smallest_sub_array_sum(s, arr):
+    low = 0
+    total = 0
+    answer = float('inf')
+
+    for high in range(len(arr)):
+        total += arr[high]
+
+        while total >= s:
+            length = high - low + 1
+            answer = min(answer, length)
+
+            total -= arr[low]
+            low += 1
+
+    if answer == float('inf'):
+        return 0
+
+    return answer

@@ -39,3 +39,62 @@ def smallest_sub_array_sum(s, arr):
         return 0
 
     return answer
+
+# 3. Longest substring with k distinct characters
+
+def longest_substring_with_k_distinct(s, k):
+    low = 0
+    freq = {}
+    answer = 0
+
+    for high in range(len(s)):
+        ch = s[high]
+
+        # add character
+        freq[ch] = freq.get(ch, 0) + 1
+
+        # shrink window if distinct chars > k
+        while len(freq) > k:
+            left_char = s[low]
+            freq[left_char] -= 1
+
+            if freq[left_char] == 0:
+                del freq[left_char]
+
+            low += 1
+
+        # update maximum length
+        answer = max(answer, high - low + 1)
+
+    return answer
+
+
+# 4. Fruits into baskets   
+
+def total_fruit(tree):
+    left = 0
+    fruits = {}
+    max_fruits = 0
+
+    for right in range(len(tree)):
+
+        # add current fruit
+        fruit = tree[right]
+        fruits[fruit] = fruits.get(fruit, 0) + 1
+
+        # if more than 2 fruit types, shrink window
+        while len(fruits) > 2:
+            left_fruit = tree[left]
+
+            fruits[left_fruit] -= 1
+
+            # remove fruit if count becomes 0
+            if fruits[left_fruit] == 0:
+                del fruits[left_fruit]
+
+            left += 1
+
+        # store maximum window size
+        max_fruits = max(max_fruits, right - left + 1)
+
+    return max_fruits

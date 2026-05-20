@@ -98,3 +98,32 @@ def total_fruit(tree):
         max_fruits = max(max_fruits, right - left + 1)
 
     return max_fruits
+
+
+# 5. No-repeat substring
+
+def length_of_longest_substring(s):
+    low = 0
+    freq = {}
+    answer = 0
+
+    for high in range(len(s)):
+        ch = s[high]
+
+        # add character
+        freq[ch] = freq.get(ch, 0) + 1
+
+        # shrink window if character repeats
+        while freq[ch] > 1:
+            left_char = s[low]
+            freq[left_char] -= 1
+
+            if freq[left_char] == 0:
+                del freq[left_char]
+
+            low += 1
+
+        # update maximum length
+        answer = max(answer, high - low + 1)
+
+    return answer

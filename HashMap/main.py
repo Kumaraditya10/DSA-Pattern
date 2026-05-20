@@ -54,3 +54,18 @@ def longest_palindrome(s):
         length += 1
 
     return length
+
+# 4. Ransom Note
+
+def can_construct_ransom_note(ransom_note, magazine):
+    freq = {}
+
+    for ch in magazine:
+        freq[ch] = freq.get(ch, 0) + 1
+
+    for ch in ransom_note:
+        if freq.get(ch, 0) == 0:
+            return False
+        freq[ch] -= 1
+
+    return True
